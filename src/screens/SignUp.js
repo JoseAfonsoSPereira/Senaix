@@ -6,15 +6,69 @@ import {
   StatusBar,
   StyleSheet,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import MyButton from "../components/MyButton";
 import { useNavigation } from "@react-navigation/native";
+import { api } from "../services/api";
 
 export default function SignUp() {
+  const navigation = useNavigation();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  async function handleSubmit() {
+    setError("");
+    if (!email.trim() || !username.trim() || !password.trim()) {
+      setError("Por favor, preencha todos os campos!");
+      return;
+
+    }
+    try {
+      await api.post("register", { email, username, password });
+      Alert.alert("Sucesso", "Usuario criado com sucesso")
+    }
+    catch (error) {
+      if (error.response) {
+        setError(error.response.data.message);
+      }
+      setError("Não foi possivel se conectar com o servidor")
+    }
+  }
   return (
     <View style={style.container}>
-      <Text>Sign Up</Text>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <Feather name="chevron-left" size={32} color="#8a8787" />
+      </TouchableOpacity>
+      <View>
+        <Text style={style.title}>Estamos quase lá</Text>
+        <Text style={style.subtitle}>Faça seu cadastro para começar a utilizar o app</Text>
+      </View>
+      <View style={{ gap: 16 }}>
+
+        <View style={style.inputBox}>
+          <Feather name="user" size={24} color="#8a8787" />
+          <TextInput style={style.input} placeholder="Digite seu Nome" placeholderTextColor="#8a8787" value={username} onChangeText={(text) => setUsername(text)}></TextInput>
+        </View>
+        <View style={style.inputBox}>
+          <Feather name="mail" size={24} color="#8a8787" />
+          <TextInput style={style.input} placeholder="Digite seu Email" placeholderTextColor="#8a8787" keyboardType="email-address" value={email} onChangeText={(text) => setEmail(text)}></TextInput>
+        </View>
+
+        <View style={style.inputBox}>
+          <Feather name="lock" size={24} color="#8a8787" />
+          <TextInput style={style.input} placeholder="Digite sua senha" placeholderTextColor="#8a8787" secureTextEntry value={password} onChangeText={(text) => setPassword(text)}></TextInput>
+        </View>
+
+        {error && <Text style={style.erro}>{error}</Text>}
+
+        <MyButton onPress={() => handleSubmit()} text="Cadastrar" style={{ with: "100%" }} />
+
+      </View>
+
     </View>
   );
 }
@@ -22,7 +76,7 @@ export default function SignUp() {
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "flex-start",
+    alignItems: "Stretch",
     justifyContent: "space-between",
     padding: 16,
   },
@@ -32,6 +86,13 @@ const style = StyleSheet.create({
     fontWeight: "700",
     width: 240,
     color: "#3D3D4D",
+  },
+
+  subtitle: {
+    fontSize: 20,
+    fontWeight: "300",
+    width: 280,
+    marginTop: 16,
   },
 
   inputBox: {
@@ -56,3 +117,4 @@ const style = StyleSheet.create({
     marginVertical: 16,
   },
 });
+
