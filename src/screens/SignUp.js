@@ -11,7 +11,7 @@ import {
 import { Feather } from "@expo/vector-icons";
 import MyButton from "../components/MyButton";
 import { useNavigation } from "@react-navigation/native";
-import { api } from "../services/api";
+import  {api}  from "../services/api";
 
 export default function SignUp() {
   const navigation = useNavigation();
@@ -34,8 +34,8 @@ export default function SignUp() {
     catch (error) {
       if (error.response) {
         setError(error.response.data.message);
-      }
-      setError("Não foi possivel se conectar com o servidor")
+      }else{
+      setError("Não foi possivel se conectar com o servidor")}
     }
   }
   return (
