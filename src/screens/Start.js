@@ -8,18 +8,24 @@ export default function Start() {
   const navigation = useNavigation();
   return (
     <View style={style.container}>
-      <StatusBar backgroundColor="#1b1b1f" barStyle="light-content"/>
-      <Image source={Logo} style={style.image}/>
-      <View style={{alignItems: "center"}}>
-      <Text style={style.title}>Seja Bem-vindo</Text>
-      <Text style={style.subtitle}>O que você deseja fazer?</Text>
+      <StatusBar backgroundColor="#1b1b1f" barStyle="light-content" />
+      <Image source={Logo} style={style.image} />
+      <View style={{ alignItems: "center" }}>
+        <Text style={style.title}>Seja Bem-vindo</Text>
+        <Text style={style.subtitle}>O que voce deseja fazer?</Text>
       </View>
-
       <View style={style.texts}>
-        <MyButton text="Login" style={{flex:1}} onPress={() =>navigation.navigate("SignIn") }></MyButton>
-        <MyButton text="Cadastrar" style={{flex:1}} onPress={() =>navigation.navigate("SignUp") }></MyButton>
+        <MyButton
+          text="Login"
+          style={{ flex: 1 }}
+          onPress={() => navigation.navigate("SignIn")}
+        />
+        <MyButton
+          text="Cadastrar"
+          style={{ flex: 1 }}
+          onPress={() => navigation.navigate("SignUp")}
+        />
       </View>
-
     </View>
   );
 }

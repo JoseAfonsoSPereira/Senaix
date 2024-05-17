@@ -21,19 +21,20 @@ export default function SignIn() {
 
   async function handleSubmit() {
     try {
-      setError("")
+      setError("");
       await signIn({ email, password });
-    }
-    catch (error) {
-      if (error.response && error.response.data && error.response.data.message) {
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
         setError(error.response.data.message);
       } else {
-        setError("Falha");
+        setError("Falha no login. Verifique suas credenciais.");
       }
     }
   }
-
-
 
   return (
     <View style={style.container}>
@@ -41,28 +42,41 @@ export default function SignIn() {
         <Feather name="chevron-left" size={32} color="#8a8787" />
       </TouchableOpacity>
       <View>
-        <Text style={style.title}>Estamos quase lá</Text>
-        <Text style={style.subtitle}>Faça seu login para começar a utilizar o app</Text>
+        <Text style={style.title}>Estamos quase lá.</Text>
+        <Text style={style.subtitle}>
+          Faça seu login para começar a utilizar o app.
+        </Text>
       </View>
       <View style={{ gap: 16 }}>
         <View style={style.inputBox}>
           <Feather name="mail" size={24} color="#8a8787" />
-          <TextInput style={style.input} placeholder="Digite seu Email" placeholderTextColor="#8a8787"
-            keyboardType="email-address" value={email} onChangeText={(text) => setEmail(text)}></TextInput>
+          <TextInput
+            style={style.input}
+            placeholder="Digite seu email"
+            placeholderTextColor="#8a8787"
+            keyboardType="email-address"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+          />
         </View>
-
         <View style={style.inputBox}>
           <Feather name="lock" size={24} color="#8a8787" />
-          <TextInput style={style.input} placeholder="Digite sua senha" placeholderTextColor="#8a8787"
-            secureTextEntry value={password} onChangeText={(text) => setPassword(text)}></TextInput>
+          <TextInput
+            style={style.input}
+            placeholder="Digite sua senha"
+            placeholderTextColor="#8a8787"
+            secureTextEntry
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+          />
         </View>
-
-        {error && <Text style={style.erro}>{error}</Text>}
-
-        <MyButton onPress={handleSubmit} text="Login" style={{ with: "100%" }} />
-
+        {error && <Text>{error}</Text>}
+        <MyButton
+          onPress={handleSubmit}
+          text="Login"
+          style={{ width: "100%" }}
+        />
       </View>
-
     </View>
   );
 }
@@ -70,7 +84,7 @@ export default function SignIn() {
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "Stretch",
+    alignItems: "stretch",
     justifyContent: "space-between",
     padding: 16,
   },

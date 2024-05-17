@@ -1,13 +1,11 @@
-import { useAuth } from "../context/useAuth";
+import React from "react";
 import AppRoutes from "./app.routes";
 import AuthRoutes from "./auth.routes";
-import React from "react";
-
+import { useAuth } from "../context/useAuth";
 
 const Routes = () => {
-    const {user} = useAuth();
-    return user ? <AppRoutes/> : <AuthRoutes/>;
+  const { user } = useAuth();
+  return user ? <AppRoutes /> : <AuthRoutes />;
 };
 
 export default Routes;
-
